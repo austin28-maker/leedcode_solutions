@@ -1,0 +1,35 @@
+# Java编译文件
+*.class
+
+# Maven
+target/
+
+# Gradle
+.gradle/
+build/
+
+# 常见编译输出目录
+out/
+bin/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# VS Code / TRAE个人配置
+.vscode/
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# 日志
+*.log
+
+# 环境变量和敏感配置
+.env
+
+# 系统文件
+.DS_Store
+Thumbs.db
