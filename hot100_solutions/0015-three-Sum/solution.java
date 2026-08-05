@@ -1,3 +1,7 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class solution {
     class Solution {
         public List<List<Integer>> threeSum(int[] nums) {
@@ -32,6 +36,7 @@ public class solution {
                     }
                 }
             }
+            return res;
         }
     }
 }
