@@ -13,3 +13,8 @@
 | 1 | Two Sum | Easy | [Python](solutions/0001-two-sum/solution.py) |
 | 20 | Valid Parentheses | Easy | [Python](solutions/0020-valid-parentheses/solution.py) |
 | 121 | Best Time to Buy and Sell Stock | Easy | [Python](solutions/0121-best-time-to-buy-and-sell-stock/solution.py) |
+
+## 琐碎小知识点
+
+如果题目里涉及到累加、乘法、阶乘，一定要 警惕溢出 ！
+下次遇到结果变成负数，第一反应就应该是： "是不是溢出了？"
