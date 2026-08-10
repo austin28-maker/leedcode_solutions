@@ -11,4 +11,4 @@ class Solution {
         root.left = invertTree(rightTree);
         return root;
     }
-    }
+}

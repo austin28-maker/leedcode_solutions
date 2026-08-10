@@ -20,5 +20,8 @@ class Solution {
         }
         return Math.max(maxDepth(root.left), maxDepth(root.right)) + 1;
         // 为什么加1，因为当前节点的最大深度是左子树的最大深度和右子树的最大深度的较大值，再加1，就是当前节点的最大深度
+
+        // 一行代码解决
+        // return root == null ? 0 : Math.max(maxDepth(root.left), maxDepth(root.right)) + 1;
     }
 }
