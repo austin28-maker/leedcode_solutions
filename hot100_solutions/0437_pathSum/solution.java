@@ -42,12 +42,15 @@ class Solution {
         curr += root.val;
 
         ret = prefix.getOrDefault(curr - targetSum, 0);
-        prefix.put(curr, prefix.getOrDefault(curr, 0) + 1);
+        prefix.put(curr, prefix.getOrDefault(curr, 0) + 1); // .put()方法表示更新前缀和的出现次数，
+        // 如果前缀和curr不存在，就设为0，再加1，否则就加1
 
         // 递归遍历左右子树
         ret += dfs(root.left, prefix, curr, targetSum);
         ret += dfs(root.right, prefix, curr, targetSum);
-        prefix.put(curr, prefix.getOrDefault(curr, 0) - 1);
+        prefix.put(curr, prefix.getOrDefault(curr, 0) - 1); // 这里为什么要减1？
+        // 因为当前节点的前缀和curr已经遍历过了，所以需要减1，
+        // 否则会在后续的递归中重复计算
 
         return ret;
     }
