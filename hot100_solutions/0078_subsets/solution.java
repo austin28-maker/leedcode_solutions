@@ -15,9 +15,9 @@ class Solution {
             ans.add(new ArrayList<Integer>(t));
             return;
         }
-        t.add(nums[cur]);
+        t.add(nums[cur]); // 选
         dfs(cur + 1, nums);
-        t.remove(t.size() - 1); // 回溯思想
-        dfs(cur + 1, nums);
+        t.remove(t.size() - 1); // 不选
+        dfs(cur + 1, nums); // 回溯
     }
 }
