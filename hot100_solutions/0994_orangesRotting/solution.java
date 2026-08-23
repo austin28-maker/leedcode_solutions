@@ -2,7 +2,7 @@
 import java.util.Queue;
 import java.util.LinkedList;
 
-class Solution {
+class solution {
     public int orangesRotting(int[][] grid) {
         int M = grid.length;
         int N = grid[0].length;
