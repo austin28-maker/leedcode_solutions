@@ -10,10 +10,10 @@ class Solution {
             for (int j = i + 1; j < length; j+= result[j]) {
                 if (T[j] > T[i]) {
                     result[i] = j - i;
-                    break;
+                    break; // 注意一定要有跳出当前循环的操作，否则没有会一直循环下去，不能体现优化的目的了。
                 } else if (result[j] == 0) { //遇到0表示后面不会有更大的值，那当然当前值就应该也为0
                     result[i] = 0;
-                    break;
+                    break; // 同理
                 }
             }
         }
