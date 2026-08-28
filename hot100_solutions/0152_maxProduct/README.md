@@ -1,0 +1,13 @@
+## 解题思路
+
+- 方法一：动态规划
+    - 定义状态：dp[i] 表示以 nums[i] 结尾的最大子数组乘积
+    - 状态转移方程：dp[i] = max(dp[i-1] * nums[i], nums[i])
+    - 初始化：dp[0] = nums[0]
+    - 结果：max(dp[i])
+
+- 优化：空间复杂度 O(1)
+    - 维护两个变量 fMax 和 fMin，分别表示以 nums[i] 结尾的最大子数组乘积和最小子数组乘积
+    - 状态转移方程：
+        - fMax[i] = max(fMax[i-1] * nums[i], fMin[i-1] * nums[i], nums[i])
+        - fMin[i] = min(fMax[i-1] * nums[i], fMin[i-1] * nums[i], nums[i])
