@@ -18,7 +18,7 @@ class Solution {
             for (int j = i - 1; j >= Math.max(i - maxLen, 0); j--) {
                 if (f[j] && words.contains(s.substring(j, i))) { // 优化：只检查长度小于等于maxLen的子字符串
                     f[i] = true;
-                    break;
+                    break; // 这里的break是跳出内层循环，继续外层循环，检查下一个i
                 }
             }
         }
