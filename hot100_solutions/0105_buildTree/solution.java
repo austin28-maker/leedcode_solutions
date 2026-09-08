@@ -2,26 +2,65 @@ import java.util.HashMap;
 import java.util.Map;
 
 
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
 class Solution {
+    int[] preorder;
+    HashMap<Integer, Integer> dic = new HashMap<>();
     public TreeNode buildTree(int[] preorder, int[] inorder) {
-        HashMap<Integer, Integer> map = new HashMap<>();
-        for (int i = 0; i < inorder.length; i++) {
-            map.put(inorder[i], i);
+        this.preorder = preorder;
+        for(int i = 0; i < inorder.length; i++){
+            dic.put(inorder[i], i);
         }
-        return buildTreeHelper(preorder, 0, preorder.length, inorder, 0, inorder.length, map);
+        return recur(0, 0, inorder.length - 1);
     }
 
-    private TreeNode buildTreeHelper(int[] preorder, int p_start, int p_end, int[] inorder, int i_start, int i_end,
-                                    HashMap<Integer, Integer> map) {
-        if (p_start == p_end) {
+    // 递推参数： 根节点在前序遍历的索引 root 、子树在中序遍历的左边界 left 、子树在中序遍历的右边界 right 。
+    TreeNode recur(int root, int left, int right){
+        if(left > right){
             return null;
         }
-        int root_val = preorder[p_start];
-        TreeNode root = new TreeNode(root_val);
-        int i_root_index = map.get(root_val);
-        int leftNum = i_root_index - i_start;
-        root.left = buildTreeHelper(preorder, p_start + 1, p_start + leftNum + 1, inorder, i_start, i_root_index, map);
-        root.right = buildTreeHelper(preorder, p_start + leftNum + 1, p_end, inorder, i_root_index + 1, i_end, map);
-        return root;
+        TreeNode node = new TreeNode(preorder[root]);
+        int i = dic.get(preorder[root]);
+        node.left = recur(root + 1, left, i - 1);
+        node.right = recur(root + i - left + 1, i + 1, right);
+        return node;
     }
 }
+
+// class Solution {
+//     public TreeNode buildTree(int[] preorder, int[] inorder) {
+//         HashMap<Integer, Integer> map = new HashMap<>();
+//         for (int i = 0; i < inorder.length; i++) {
+//             map.put(inorder[i], i);
+//         }
+//         return buildTreeHelper(preorder, 0, preorder.length, inorder, 0, inorder.length, map);
+//     }
+
+//     private TreeNode buildTreeHelper(int[] preorder, int p_start, int p_end, int[] inorder, int i_start, int i_end,
+//                                     HashMap<Integer, Integer> map) {
+//         if (p_start == p_end) {
+//             return null;
+//         }
+//         int root_val = preorder[p_start];
+//         TreeNode root = new TreeNode(root_val);
+//         int i_root_index = map.get(root_val);
+//         int leftNum = i_root_index - i_start;
+//         root.left = buildTreeHelper(preorder, p_start + 1, p_start + leftNum + 1, inorder, i_start, i_root_index, map);
+//         root.right = buildTreeHelper(preorder, p_start + leftNum + 1, p_end, inorder, i_root_index + 1, i_end, map);
+//         return root;
+//     }
+// }
