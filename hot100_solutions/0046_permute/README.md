@@ -8,3 +8,7 @@
 - List< Integer >和int[]的区别
 - .set()方法的使用
 - .get()方法的使用
+
+## 二编
+
+- 注意和`relist`相加的必须也是一个列表类型，所以是[nums[i]]，而不是nums[i]
