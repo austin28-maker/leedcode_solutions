@@ -1,3 +1,32 @@
+# 枚举下一个左括号的位置
+class Solution:
+    def generateParenthesis(self, n: int) -> List[str]:
+        ans = []
+        path = []  # 记录左括号的下标
+
+        # 目前填了 i 个括号
+        # balance = 这 i 个括号中的左括号个数 - 右括号个数
+        def dfs(i: int, balance: int) -> None:
+            if len(path) == n:
+                s = [')'] * (n * 2)
+                for j in path:
+                    s[j] = '('
+                ans.append(''.join(s))
+                return
+            # 枚举填 right=0,1,2,...,balance 个右括号
+            for right in range(balance + 1):
+                # 先填 right 个右括号，然后填 1 个左括号，记录左括号的下标 i+right
+                path.append(i + right)
+                dfs(i + right + 1, balance - right + 1)
+                path.pop()  # 恢复现场
+                # 这里的pop()表示恢复现场，将 path 中的最后一个元素弹出，即上一个填的右括号的下标，准备填下一个右括号的下标。
+                # path是先入后出的，所以这里需要弹出的是上一个填的右括号的下标。
+                # 先入后出的数据结构是栈。
+
+        dfs(0, 0)
+        return ans
+
+# 动态规划
 class Solution:
     def generateParenthesis(self, n: int) -> List[str]:
         if n == 0:

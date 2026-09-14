@@ -5,17 +5,19 @@
 - 剪枝二：从 start 开始遍历，避免生成重复子集
     - 重点理解：为什么从 start 开始遍历，避免生成重复子集？
 
-## 知识点
-
-- 
-
 ## 注意事项
 
 - 理解res.add(new ArrayList<>(state)) 做的事
     - 给 state 拍一张“快照”，把快照存进结果。
     - 如果不 new 直接存 state 本身，res 里所有条目最后都会变成空列表。
     - 17题的`res.add(sb.toString());// 注意其他题目res如果是列表，加入的时候需要new新的列表，否则最后一定被回溯到空列表`同理
-    - 举例：
+    - 举例见附件1。
+    
+## 二编
+
+- 在求和问题中，排序之后加剪枝是常见的套路！
+
+## 附件1
     ```
     import java.util.ArrayList;
     import java.util.List;
