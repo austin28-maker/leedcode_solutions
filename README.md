@@ -1,20 +1,18 @@
 # leedcode_solutions
 
-记录我的 LeetCode 刷题过程。
+我的个人 LeetCode 刷题记录仓库，用于沉淀刷题过程中的题解与思考。
 
 ## 使用语言
 
 - Java
+- Python
 
-## 题目列表
+## 目录结构
 
-| 题号 | 题目 | 难度 | 解答 |
-| --- | --- | --- | --- |
-| 1 | Two Sum | Easy | [Python](solutions/0001-two-sum/solution.py) |
-| 20 | Valid Parentheses | Easy | [Python](solutions/0020-valid-parentheses/solution.py) |
-| 121 | Best Time to Buy and Sell Stock | Easy | [Python](solutions/0121-best-time-to-buy-and-sell-stock/solution.py) |
+- `hot100_solutions/`：LeetCode Hot 100 题目
+- `not100_solutions/`：Hot 100 之外的其他题目
+- `High_Frequency_Q/`：按公司整理的高频面试题
 
-## 琐碎小知识点
+## 说明
 
-如果题目里涉及到累加、乘法、阶乘，一定要 警惕溢出 ！
-下次遇到结果变成负数，第一反应就应该是： "是不是溢出了？"
+每道题位于独立目录中，包含解题代码和记录题意、思路或疑问的笔记，方便后续回顾与复盘。

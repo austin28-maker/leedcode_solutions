@@ -1,50 +1,128 @@
 class Solution {
     public ListNode sortList(ListNode head) {
-        return sortList(head, null);
-    }
-
-    public ListNode sortList(ListNode head, ListNode tail) {
-        if (head == null) {
-            return head;
-        }
-        if (head.next == tail) { // 这里怎么就判断链表只有一个节点啊？范围是左开右闭区间，不包含tail
-            // 所以head.next == tail时，说明head是最后一个节点
-            head.next = null;
-            return head;
-        }
-        ListNode slow = head, fast = head;
-        while (fast != tail) {
-            slow = slow.next;
-            fast = fast.next;
-            if (fast != tail) {
-                fast = fast.next;
+        int length = getListLength(head); // 获取链表长度
+        ListNode dummy = new ListNode(0, head); // 用哨兵节点简化代码逻辑
+        // step 为步长，即参与合并的链表长度
+        for (int step = 1; step < length; step *= 2) {
+            ListNode newListTail = dummy; // 新链表的末尾
+            ListNode cur = dummy.next; // 每轮循环的起始节点
+            while (cur != null) {
+                // 从 cur 开始，分割出两段长为 step 的链表，头节点分别为 head1 和 head2
+                ListNode head1 = cur;
+                ListNode head2 = splitList(head1, step);
+                cur = splitList(head2, step); // 下一轮循环的起始节点
+                // 合并两段长为 step 的链表
+                ListNode[] merged = mergeTwoLists(head1, head2);
+                // 合并后的头节点 merged[0]，插到 newListTail 的后面
+                newListTail.next = merged[0];
+                newListTail = merged[1]; // merged[1] 现在是新链表的末尾
             }
         }
-        ListNode mid = slow;
-        ListNode list1 = sortList(head, mid);
-        ListNode list2 = sortList(mid, tail);
-        ListNode sorted = merge(list1, list2);
-        return sorted;
+        return dummy.next;
     }
 
-    public ListNode merge(ListNode head1, ListNode head2) {
-        ListNode dummyHead = new ListNode(0);
-        ListNode temp = dummyHead, temp1 = head1, temp2 = head2;
-        while (temp1 != null && temp2 != null) {
-            if (temp1.val <= temp2.val) {
-                temp.next = temp1;
-                temp1 = temp1.next;// 移动指针到下一个节点
-            } else {
-                temp.next = temp2;
-                temp2 = temp2.next;// 移动指针到下一个节点
+    // 获取链表长度
+    private int getListLength(ListNode head) {
+        int length = 0;
+        while (head != null) {
+            length++;
+            head = head.next;
+        }
+        return length;
+    }
+
+    // 分割链表
+    // 如果链表长度 <= size，不做任何操作，返回空节点
+    // 如果链表长度 > size，把链表的前 size 个节点分割出来（断开连接），并返回剩余链表的头节点
+    private ListNode splitList(ListNode head, int size) {
+        // 先找到 nextHead 的前一个节点
+        ListNode cur = head;
+        for (int i = 0; i < size - 1 && cur != null; i++) {
+            cur = cur.next;
+        }
+
+        // 如果链表长度 <= size
+        if (cur == null || cur.next == null) {
+            return null; // 不做任何操作，返回空节点
+        }
+
+        ListNode nextHead = cur.next;
+        cur.next = null; // 断开 nextHead 的前一个节点和 nextHead 的连接
+        return nextHead;
+    }
+
+    // 21. 合并两个有序链表（双指针）
+    // 返回合并后的链表的头节点和尾节点
+    private ListNode[] mergeTwoLists(ListNode list1, ListNode list2) {
+        ListNode dummy = new ListNode(); // 用哨兵节点简化代码逻辑
+        ListNode cur = dummy; // cur 指向新链表的末尾
+        while (list1 != null && list2 != null) {
+            if (list1.val < list2.val) {
+                cur.next = list1; // 把 list1 加到新链表中
+                list1 = list1.next;
+            } else { // 注：相等的情况加哪个节点都是可以的
+                cur.next = list2; // 把 list2 加到新链表中
+                list2 = list2.next;
             }
-            temp = temp.next;
+            cur = cur.next;
         }
-        if (temp1 != null) {
-            temp.next = temp1;// 合并剩余的节点
-        } else if (temp2 != null) {
-            temp.next = temp2;// 合并剩余的节点
+        cur.next = list1 != null ? list1 : list2; // 拼接剩余链表
+        while (cur.next != null) {
+            cur = cur.next;
         }
-        return dummyHead.next;
+        // 循环结束后，cur 是合并后的链表的尾节点
+        return new ListNode[]{dummy.next, cur};
     }
 }
+
+
+// class Solution {
+//     public ListNode sortList(ListNode head) {
+//         return sortList(head, null);
+//     }
+
+//     public ListNode sortList(ListNode head, ListNode tail) {
+//         if (head == null) {
+//             return head;
+//         }
+//         if (head.next == tail) { // 这里怎么就判断链表只有一个节点啊？范围是左开右闭区间，不包含tail
+//             // 所以head.next == tail时，说明head是最后一个节点
+//             head.next = null;
+//             return head;
+//         }
+//         ListNode slow = head, fast = head;
+//         while (fast != tail) {
+//             slow = slow.next;
+//             fast = fast.next;
+//             if (fast != tail) {
+//                 fast = fast.next;
+//             }
+//         }
+//         ListNode mid = slow;
+//         ListNode list1 = sortList(head, mid);
+//         ListNode list2 = sortList(mid, tail);
+//         ListNode sorted = merge(list1, list2);
+//         return sorted;
+//     }
+
+//     public ListNode merge(ListNode head1, ListNode head2) {
+//         ListNode dummyHead = new ListNode(0);
+//         ListNode temp = dummyHead, temp1 = head1, temp2 = head2;
+//         while (temp1 != null && temp2 != null) {
+//             if (temp1.val <= temp2.val) {
+//                 temp.next = temp1;
+//                 temp1 = temp1.next;// 移动指针到下一个节点
+//             } else {
+//                 temp.next = temp2;
+//                 temp2 = temp2.next;// 移动指针到下一个节点
+//             }
+//             temp = temp.next;
+//         }
+//         if (temp1 != null) {
+//             temp.next = temp1;// 合并剩余的节点
+//         } else if (temp2 != null) {
+//             temp.next = temp2;// 合并剩余的节点
+//         }
+//         return dummyHead.next;
+//     }
+// }

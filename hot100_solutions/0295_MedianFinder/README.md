@@ -19,3 +19,14 @@
 - 如果你直接用 System.out.println(A) 打印这个队列，看到的内部数组顺序可能看起来是乱序的。
 - 只有连续不断地调用 poll()，拿出来的元素才会呈现全局的升序/降序。
 - 因为堆的内部存储是一个完全二叉树，只有根节点是极值。
+
+## 二编
+
+- 注意PriorityQueue默认小顶堆，要实现大顶堆，需要自定义比较器 comparator。
+    - 一定要加上类似`new PriorityQueue<>((x, y) -> (y - x));`，
+    - 否则会报错
+
+- Python 中没有 PriorityQueue 类，但是可以使用 heapq 模块来实现优先级队列。
+    - 而 heapq 模块默认是小顶堆，要实现大顶堆，需要将元素取负数。
+    - 例如，`heapq.heappush(maxHeap, -x)`，`heapq.heappop(maxHeap)`，
+    - 就可以实现大顶堆的功能。

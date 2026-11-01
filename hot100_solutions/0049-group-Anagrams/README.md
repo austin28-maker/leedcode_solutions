@@ -24,3 +24,24 @@
 - Python中 sorted(s) 返回的不是字符串，而是字符列表。
     - 所以，我们需要使用 join() 方法，将字符列表转换为字符串。
     - 这里用空字符串连接，所以结果就是排序后的字符串。
+
+## 二编
+
+- 思路不好想，字母异位词的两种处理方法
+    - 1. 排序后的字符串作为键
+    - 2. 字符计数作为键
+
+- 下面的方法与computeIfAbsent方法同理
+    String key = new String(c);
+    if(!map.containsKey(key)){
+        map.put(key, new ArrayList<>());
+    }
+    map.get(key).add(str);
+    - 等价于：
+    - map.computeIfAbsent(new String(c), _ -> new ArrayList<>()).add(str);
+
+- 注意：因为 map.values() 返回的类型是 Collection<List<String>>，
+    - 而要求返回的是 List<List<String>>，两者类型不一致，
+    - 所以如果直接返回 map.values()，会编译报错。
+    - 所以，我们需要使用 ArrayList 构造函数，将 Collection 转换为 ArrayList。
+    - 最后，返回 ArrayList。即 return new ArrayList<>(map.values());
